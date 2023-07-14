@@ -1,10 +1,10 @@
 # Hardening ssh connections to managed hosts with Ansible Automation Platform
 
-Ansible Automation Platform (AAP), as a platform for implementing enterprise-wide automation, is a central point in many organizations. From there, AAP can access any host for automation purposes. Security has many layers (see [Zero Trust architecture](https://www.redhat.com/en/topics/security/what-is-zero-trust)), and this article focuses on one specific security layer: **mitigate the ssh base attacks on managed hosts**. We cannot eliminate all the security risks, but we’ll harden our managed hosts for eliminating some of them (*brute force attack*), and mitigating others (*allowing ssh connections only from authorized hosts*, *setting up sudo password*). 
+Ansible Automation Platform (AAP), as a platform for implementing enterprise-wide automation, is a central point in many organizations. From there, AAP can access any host for automation purposes. Security has many layers (see [Zero Trust architecture](https://www.redhat.com/en/topics/security/what-is-zero-trust)), and this article focuses on one specific security layer: **mitigate the ssh base attacks on managed hosts**. We cannot eliminate all the security risks, but we can harden our managed hosts for eliminating some of them (*brute force attack*), and mitigating others (*allowing ssh connections only from authorized hosts*, *setting up sudo password*). 
 
 Although this article’ s use case is around AAP, most of the **hardening configuration** is applied to the managed hosts (editing `sshd_config`, `sssd.conf`, `access.conf`). So you can apply the same concepts if you have any other central point that uses ssh, like [Red Hat Satellite](https://www.redhat.com/en/technologies/management/satellite) if you’re using the *Remote Execution* feature.
 
-We’ll hardened the managed host configuration using:
+We will harden the managed host configuration using:
 
 * Multiple Service Accounts for ssh login to the hosts, created in AD/LDAP with:
     * Public key stored in AD/LDAP for ssh login with Public Key authentication
@@ -35,7 +35,7 @@ Does this configuration sound familiar?
 
 Many companies create only one service account per service. In this AAP scenario, only one Service Account is created to be used by AAP to connect to all the managed hosts. However, if for any reason this service account is compromised, the attacker could access any managed host.
 
-We’ll apply again the security layer concept: we’ll create different service accounts. And at this point, there is not a common approach: you should check what’s the best based on infrastructure architecture. Some of the strategies for creating different service account are:
+We apply again the security layer concept: we create different service accounts. And at this point, there is not a common approach: you should check what’s the best based on infrastructure architecture. Some of the strategies for creating different service accounts are:
 
 * `Location/datacenter` -> create one service account per datacenter
 * `Organization/Domain` -> create one service account per organization/domain
@@ -47,7 +47,7 @@ We’ll apply again the security layer concept: we’ll create different service
 
 ### SSH Public key authentication using AD/LDAP
 
-SSH authentication for these service accounts will be based on Public keys. Although public keys also have their drawbacks over passwords, we’ll eliminate the *brute force attack* for SSH login.
+SSH authentication for these service accounts will be based on Public keys. Although public keys also have their drawbacks over passwords, we eliminate the *brute force attack* for SSH login.
 
 Follow the KCS to [Store User SSH Keys in Active Directory for SSH Authentication](https://access.redhat.com/solutions/5353351): 
 
@@ -73,7 +73,7 @@ Follow the KCS to [Store User SSH Keys in Active Directory for SSH Authenticatio
 
 ### Deny password authentication for the Service Account
 
-For **sudo purposes**, we’ll use the Service Account password. 
+For **sudo purposes**, we use the Service Account password. 
 
 In all the Managed hosts, add below SSH parameters to `/etc/ssh/sshd_config` to deny using SSH password authentication.
 
@@ -85,7 +85,7 @@ Match all
 
 ### Require password for sudo
 
-For **sudo purposes**, we’ll request the password for the Service Accounts.
+For **sudo purposes**, we request the password for the Service Accounts.
 
 Create a new file `/etc/sudoers.d/<Service Account Group>`:
 
