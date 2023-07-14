@@ -69,7 +69,7 @@ Follow the KCS to [Store User SSH Keys in Active Directory for SSH Authenticatio
         AuthorizedKeysCommandUser nobody
         ```
 
-*NOTE*: `AuthorizedKeysCommandUser` specifies the user under whose account the AuthorizedKeysCommand is run. It is recommended to use a dedicated user.
+**NOTE**: `AuthorizedKeysCommandUser` specifies the user under whose account the AuthorizedKeysCommand is run. It is recommended to use a dedicated user.
 
 ### Deny password authentication for the Service Account
 
