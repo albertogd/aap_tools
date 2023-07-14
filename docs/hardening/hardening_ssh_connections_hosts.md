@@ -1,14 +1,14 @@
 # Hardening ssh connections to managed hosts with Ansible Automation Platform
 
-Ansible Automation Platform (AAP), as a platform for implementing enterprise-wide automation, is a central point in many organizations. From there, AAP can access any host for automation purposes. Security has many layers (see [Zero Trust architecture](https://www.redhat.com/en/topics/security/what-is-zero-trust)), and this article focuses on one specific security layer: **mitigate the ssh base attacks on managed hosts**. We cannot eliminate all the security risks, but we’ll harden our managed hosts for eliminating some of them (**brute force attack**), and mitigating others (**allowing ssh connections only from authorized hosts**, **setting up sudo password**). 
+Ansible Automation Platform (AAP), as a platform for implementing enterprise-wide automation, is a central point in many organizations. From there, AAP can access any host for automation purposes. Security has many layers (see [Zero Trust architecture](https://www.redhat.com/en/topics/security/what-is-zero-trust)), and this article focuses on one specific security layer: **mitigate the ssh base attacks on managed hosts**. We cannot eliminate all the security risks, but we’ll harden our managed hosts for eliminating some of them (*brute force attack*), and mitigating others (*allowing ssh connections only from authorized hosts*, *setting up sudo password*). 
 
 Although this article’ s use case is around AAP, most of the **hardening configuration** is applied to the managed hosts (editing `sshd_config`, `sssd.conf`, `access.conf`). So you can apply the same concepts if you have any other central point that uses ssh, like [Red Hat Satellite](https://www.redhat.com/en/technologies/management/satellite) if you’re using the **Remote Execution** feature.
 
-We’ll hardened the **managed host configuration** using:
+We’ll hardened the managed host configuration using:
 
 * Multiple Service Accounts for ssh login to the hosts, created in **AD/LDAP** with:
-    * Public key stored in **AD/LDAP** for ssh login with Public Key authentication
-    * Password stored in **AD/LDAP** for sudo only (not for ssh login)
+    * Public key stored in AD/LDAP for ssh login with Public Key authentication
+    * Password stored in AD/LDAP for sudo only (not for ssh login)
 * In any managed host:
     * A service account can login only from AAP execution nodes (any attempt to log in from any other place will be rejected)
     * Privilege escalation with sudo for any Service Account needs password
@@ -22,10 +22,10 @@ We start from a standard non-hardened solution deployment where:
 
 * There is one *AAP Service Account*:
     * Used for ssh login to the hosts
-    * Created in **AD/LDAP** with a *random password*.
+    * Created in AD/LDAP with a *random password*.
 * In any host:
-    * The Service Account can **log in with the password**
-    * The Service Account can **sudo without using password**
+    * The Service Account can *log in with the password*
+    * The Service Account can *sudo without using password*
 
 Does this configuration sound familiar?
 
@@ -51,7 +51,7 @@ SSH authentication for these service accounts will be based on Public keys. Alth
 
 Follow the KCS to [Store User SSH Keys in Active Directory for SSH Authentication](https://access.redhat.com/solutions/5353351): 
 
-1. Add Service Account’s public ssh key to `altSecurityIdentities` attribute in **AD/LDAP**.
+1. Add Service Account’s public ssh key to `altSecurityIdentities` attribute in AD/LDAP.
 1. In all the Managed hosts: 
     * Append `ssh` to services parameter in `/etc/sssd/sssd.conf`:
         ```ini
