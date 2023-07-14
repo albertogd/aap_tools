@@ -104,7 +104,7 @@ $ cat /etc/sudoers.d/aapsas
 
 ### Allow only connections from authorized hosts (AAP execution nodes)
 
-The last security layer is to allow ssh connections for the Service Account coming only from AAP execution nodes or LOCAL (for sudo purposes). To avoid any other (AAP) Service Account connecting to this host, after the line allowing connections for the service account from AAP Execution Nodes or Local, add a line *rejecting connection from Service Account group*.  
+The last security layer is to allow ssh connections for the Service Account coming only from AAP execution nodes or LOCAL (for sudo purposes). To avoid any other (AAP) Service Account connecting to this host, after the line allowing connections for the service account from AAP Execution Nodes or Local, add a line *rejecting connections from Service Account group*.  
 
 In all the Managed hosts, add below configuration `/etc/security/access.conf`:
 
@@ -115,7 +115,7 @@ In all the Managed hosts, add below configuration `/etc/security/access.conf`:
 
 ### Automating all the configuration
 
-All the configuration can be easily automated using the template module, and templating the configuration files `/etc/security/access.conf`, `/etc/sssd/sssd.conf` and `/etc/ssh/sshd_config`.
+All the configuration can be easily automated using the **template** module, and templating the configuration files `/etc/security/access.conf`, `/etc/sssd/sssd.conf` and `/etc/ssh/sshd_config`.
 
 
 ## Summary
