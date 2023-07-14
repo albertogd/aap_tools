@@ -115,7 +115,9 @@ In all the Managed hosts, add below configuration `/etc/security/access.conf`:
 
 ### Automating all the configuration
 
-All the configuration can be easily automated using the **template** module, and templating the configuration files `/etc/security/access.conf`, `/etc/sssd/sssd.conf` and `/etc/ssh/sshd_config`.
+All the configuration can be easily automated using the **template** module, and applying the configuration (`/etc/security/access.conf`, `/etc/sssd/sssd.conf` and `/etc/ssh/sshd_config`) to all the managed hosts.
+
+**NOTE**: As we're changing the connection security parameters of the target hosts, be very careful. A wrong configuration could cause sshd service not being able to start, a user (who should) not being able to access, etc.
 
 
 ## Summary
