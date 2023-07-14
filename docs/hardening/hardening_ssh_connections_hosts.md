@@ -6,7 +6,7 @@ Although this article’ s use case is around AAP, most of the **hardening confi
 
 We’ll hardened the managed host configuration using:
 
-* Multiple Service Accounts for ssh login to the hosts, created in **AD/LDAP** with:
+* Multiple Service Accounts for ssh login to the hosts, created in AD/LDAP with:
     * Public key stored in AD/LDAP for ssh login with Public Key authentication
     * Password stored in AD/LDAP for sudo only (not for ssh login)
 * In any managed host:
