@@ -16,9 +16,9 @@ We’ll hardened the managed host configuration using:
 ![Ansible Hardening Overview](../img/ansbile_hardening.png)
 
 
-## Start base scenario
+## Base scenario
 
-We start from a standard non-hardened solution deployment where:
+We start from a base/standard non-hardened solution deployment where:
 
 * There is one *AAP Service Account*:
     * Used for ssh login to the hosts
@@ -100,11 +100,11 @@ $ cat /etc/sudoers.d/aapsas
 %appsas   ALL=(ALL:ALL) ALL
 ```
 
-**NOTE**: Although the security best practices recommend to add only some specifc allowed command to run sudo, this is not possible with Ansible. For managed hosts, Ansible communicate to the target machines (most commonly using ssh), and copies and executes a python script.
+**NOTE**: Although the security best practices recommend adding only some specific allowed command to run sudo, this is not possible with Ansible. For managed hosts, Ansible communicates to the target machines (most commonly using ssh), and copies and executes a python script.
 
 ### Allow only connections from authorized hosts (AAP execution nodes)
 
-The last security layer is to allow ssh connections for the Service Account coming only from AAP execution nodes or LOCAL (for sudo purposes). To avoid any other (AAP) Service Account connecting to this host, after the line allowing connections for the service account from AAP Execution Nodes or Local, add a line *rejecting connections from Service Account group*.  
+The last hardening configuration is to allow ssh connections for the Service Account coming only from AAP execution nodes or LOCAL (for sudo purposes). To avoid any other (AAP) Service Account connecting to this host, after the line allowing connections for the service account from AAP Execution Nodes or Local, add a line *rejecting connections from Service Account group*.  
 
 In all the Managed hosts, add below configuration `/etc/security/access.conf`:
 
