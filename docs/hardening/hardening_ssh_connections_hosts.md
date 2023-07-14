@@ -2,7 +2,7 @@
 
 Ansible Automation Platform (AAP), as a platform for implementing enterprise-wide automation, is a central point in many organizations. From there, AAP can access any host for automation purposes. Security has many layers (see [Zero Trust architecture](https://www.redhat.com/en/topics/security/what-is-zero-trust)), and this article focuses on one specific security layer: **mitigate the ssh base attacks on managed hosts**. We cannot eliminate all the security risks, but we’ll harden our managed hosts for eliminating some of them (*brute force attack*), and mitigating others (*allowing ssh connections only from authorized hosts*, *setting up sudo password*). 
 
-Although this article’ s use case is around AAP, most of the **hardening configuration** is applied to the managed hosts (editing `sshd_config`, `sssd.conf`, `access.conf`). So you can apply the same concepts if you have any other central point that uses ssh, like [Red Hat Satellite](https://www.redhat.com/en/technologies/management/satellite) if you’re using the **Remote Execution** feature.
+Although this article’ s use case is around AAP, most of the **hardening configuration** is applied to the managed hosts (editing `sshd_config`, `sssd.conf`, `access.conf`). So you can apply the same concepts if you have any other central point that uses ssh, like [Red Hat Satellite](https://www.redhat.com/en/technologies/management/satellite) if you’re using the *Remote Execution* feature.
 
 We’ll hardened the managed host configuration using:
 
