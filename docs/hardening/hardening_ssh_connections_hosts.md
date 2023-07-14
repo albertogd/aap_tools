@@ -73,7 +73,9 @@ Follow the KCS to [Store User SSH Keys in Active Directory for SSH Authenticatio
 
 ### Deny password authentication for the Service Account
 
-For sudo purposes, we’ll use the Service Account password. In all the Managed hosts, add below SSH parameters to `/etc/ssh/sshd_config` to deny using SSH password authentication.
+For **sudo purposes**, we’ll use the Service Account password. 
+
+In all the Managed hosts, add below SSH parameters to `/etc/ssh/sshd_config` to deny using SSH password authentication.
 
 ```ini
 Match User <Service Account>
@@ -83,7 +85,9 @@ Match all
 
 ### Require password for sudo
 
-For sudo purposes, we’ll request the password for the Service Accounts. Create a new file `/etc/sudoers.d/<Service Account Group>`:
+For **sudo purposes**, we’ll request the password for the Service Accounts.
+
+Create a new file `/etc/sudoers.d/<Service Account Group>`:
 
 ```ini
 %<Service Account Group>   ALL=(ALL:ALL) ALL
